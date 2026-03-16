@@ -711,7 +711,7 @@ const content = {
         ["Post-booking","STANDARD","MCP only · auth",'"my booking" "pickup"',"Claude Haiku"],
         ["Quotation","COMPLEX","RAG + MCP both",'"quote me" "plan trip"',"Claude Sonnet"],
         ["FAQ / policy","SIMPLE","RAG only",'"what is" "policy"',"Gemini Flash"],
-        ["External","STANDARD","Web search",'"weather" "visa"',"Claude Haiku"],
+        ["External","STANDARD","Web search",'"weather" ',"Claude Haiku"],
       ]}/>
       <Card accent="warning">Confidence &lt; 0.7 → ask clarifying question first. Zero cost until intent is clear.</Card>
     </div>
