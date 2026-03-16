@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './styles.css';
 
 const Badge = ({ label, color }) => {
   const colors = {
@@ -816,12 +817,25 @@ const content = {
 
 export default function App() {
   const [active, setActive] = useState("techstack");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleNav = (id) => {
+    setActive(id);
+    setMenuOpen(false);
+  };
+
   return (
-    <div style={{ display:"flex", minHeight:700, fontFamily:"var(--font-sans)", fontSize:14 }}>
-      <div style={{ width:190, minWidth:190, borderRight:"1px solid var(--color-border-tertiary)", padding:"14px 0", background:"var(--color-background-secondary)", flexShrink:0 }}>
+    <div className="app-shell">
+      {menuOpen && <div className="mobile-overlay" onClick={() => setMenuOpen(false)} />}
+
+      <button className="hamburger-btn" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
+        {menuOpen ? "✕" : "☰"}
+      </button>
+
+      <div className={`sidebar${menuOpen ? " sidebar-open" : ""}`}>
         <div style={{ padding:"0 14px 10px", fontSize:11, fontWeight:500, color:"var(--color-text-tertiary)", letterSpacing:"0.06em" }}>RAYNA BOT LLD</div>
         {sections.map(s => (
-          <button key={s.id} onClick={() => setActive(s.id)} style={{
+          <button key={s.id} onClick={() => handleNav(s.id)} style={{
             display:"block", width:"100%", textAlign:"left", padding:"7px 14px",
             fontSize:13, fontWeight:active===s.id?500:400, border:"none", cursor:"pointer",
             background:active===s.id?"var(--color-background-primary)":"transparent",
@@ -833,12 +847,13 @@ export default function App() {
             {s.label}
           </button>
         ))}
-        <div style={{ padding:"14px 14px 4px", marginTop:8, borderTop:"1px solid var(--color-border-tertiary)" }}>
+        <div style={{ padding:"14px 14px 4px", marginTop:"auto", borderTop:"1px solid var(--color-border-tertiary)" }}>
           <div style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>Phase 1 · AWS · FastAPI</div>
           <div style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>Next.js · Pinecone · Redis</div>
         </div>
       </div>
-      <div style={{ flex:1, padding:"24px 28px", overflowY:"auto" }}>
+
+      <div className="main-content">
         {content[active]}
       </div>
     </div>
